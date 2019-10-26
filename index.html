@@ -1,0 +1,49 @@
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+
+</head>
+<body>
+    <div id="app">
+        <div class="row app-holder">
+            <div class="col-4 left-side">
+                <div class="row" id="inputTypeMenu">
+                    <div class="col">
+                        <input type="radio" v-model="inputType" name="inputType" id="inputTypeQuery" value="query">
+                        <label for="inputTypeQuery">Query</label>
+                    </div>
+                    <div class="col">
+                        <input type="radio" v-model="inputType" name="inputType" id="inputTypeSvg" value="svg">
+                        <label for="inputTypeSvg">SVG</label>
+                    </div>
+                    <div class="col">
+                        <input type="radio" v-model="inputType" name="inputType" id="inputTypeUrl" value="url">
+                        <label for="inputTypeUrl">URL</label>
+                    </div> 
+                </div>
+                <div id="error-holder">
+                    <p v-for="e in errors">{{e}}</p>
+                </div>
+                <!-- v-if="inputType!=''" -->
+                <div class="row" id="inputTypeHolder" > 
+                    <textarea id="inputField" v-model="userInput"></textarea>
+                    
+                    <button type="button" v-on:click="submit()" class="btn-sm btn btn-info submit-tbn">Submit</button>
+                </div>
+            </div>
+            <div class="col-8 right-side">
+                <h3>
+                    Sample Visualizations
+                </h3>
+                <div id="charts-holder">
+                    <graphs-holder v-for="graph in graphs" v-bind:code='graph.code' v-bind:id='graph.key'></graph-holder>
+                </div>
+            </div> 
+        </div>
+        
+</div>
+</body>
+<script src="app.js"></script>
+</html>
