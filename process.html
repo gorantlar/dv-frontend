@@ -14,15 +14,27 @@
         <label>Start Id</label> <input type="text" v-model="start">
         <br/>
         <label>End Id</label> <input type="text" v-model="end">
-        <br/>
+        <br/><br/>
         <button @click="init">Start</button>
         <br/>
+        <hr/>
         <p>SVG's received (SVG elements received from DB): {{svgReceived}}</p>
-        <p>SVG's no response (GET returned empty response):{{noResponseSvg}}</p>
+        <!-- <p>List: {{svgReceivedList}}</p> -->
 
+        <br/>
+        <hr/>
+        <p>SVG's no response (GET returned empty response):{{noResponseSvg}}</p>
+        <p>List: {{noResponseSvgList}}</p>
+
+        <br/>
+        <hr/>
         <p>SVG's processed (JSON sent to DB for storing): {{svgProcessed}}</p>
-       
+        <p>List: {{svgProcessedList}}</p>
+
+        <br/>
+        <hr/>
         <p>SVG's to delete (marks for the SVG is empty): {{svgToDelete}}</p>
+        <p>List: {{svgToDeleteList}}</p>
     </div>
         
 </div>

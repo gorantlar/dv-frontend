@@ -37,7 +37,7 @@ var app = new Vue({
             if(this.inputType == "url"){
                 this.getSvg()
             }else if(this.inputType == "query"){
-                this.search(this.inputType)
+                this.search(this.userInput)
             }
         },
         getSvg(){
@@ -69,6 +69,27 @@ var app = new Vue({
             })
         },
         search: function(input){
+            let json = JSON.parse(input)
+            json["from"] = 0
+            json["to"] = 9
+
+            const params = (new URLSearchParams(json)).toString()
+
+            console.log(params.toString())
+
+            $.ajax({
+                url: this.url + "collection/?" + params,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result){
+                    
+                    console.log(result);
+                },
+                failure: function(error){
+                    console.log(i + " " + error)
+                }
+            })
+
 
         },
         deconstruct: function(result){
@@ -141,7 +162,8 @@ var app = new Vue({
         inputType:"",
         graphs: [],
         errors: [],
-        crawlerUrl: ""
+        crawlerUrl: "",
+        url:"https://cse578-final-project.herokuapp.com/"
     }
 
   })

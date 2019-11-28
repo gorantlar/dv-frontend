@@ -6,9 +6,16 @@ var app = new Vue({
             self.noResponseSvg = 0
             self.svgReceived = 0
             self.svgProcessed = 0
-            this.svgToDelete = 0
+            self.svgToDelete = 0
+
+            self.noResponseSvgList = []
+            self.svgToDeleteList = []
+            self.svgProcessedList = []
+
+
             for(i=this.start; i<= this.end; i++){
                 self.svgReceived += 1 
+                let currentId = i
                 $.ajax({
                     url: this.url + "collection/order/" + i,
                     contentType: "application/json",
@@ -17,6 +24,7 @@ var app = new Vue({
                         if(!result || result.length == 0){
                             console.log(i + " received empty response")
                             self.noResponseSvg += 1
+                            self.noResponseSvgList.push(currentId)
                             return
                         }
                         
@@ -82,13 +90,15 @@ var app = new Vue({
                 this.sendDataToServer(reqObj)
             }else{
                 this.svgToDelete += 1
-                this.deletesvg(reqObj)
+                this.svgToDeleteList.push(reqObj.order)
+                //this.deletesvg(reqObj)
             }
             
        },
        sendDataToServer : function(data){
         console.log(data)
         this.svgProcessed += 1;
+        this.svgProcessedList.push(data.order)
         $.ajax({
             type: "POST",
             url: this.url + "collection",
@@ -131,7 +141,10 @@ var app = new Vue({
         end: 1,
         svgReceived:0,
         svgProcessed:0,
+        svgProcessedList:[],
         noResponseSvg:0,
-        svgToDelete:0
+        noResponseSvgList:[],
+        svgToDelete:0,
+        svgToDeleteList:[]
     }
   })
