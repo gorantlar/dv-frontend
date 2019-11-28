@@ -3,6 +3,10 @@ var app = new Vue({
     methods:{
        init: function(){
             self = this
+            self.noResponseSvg = 0
+            self.svgReceived = 0
+            self.svgProcessed = 0
+            this.svgToDelete = 0
             for(i=this.start; i<= this.end; i++){
                 self.svgReceived += 1 
                 $.ajax({
@@ -19,7 +23,7 @@ var app = new Vue({
                         result = result[0]
                         //self.order = result.order
                         //console.log(result);
-                        self.deconstruct(result);
+                        self.deconstruct(result.svg, result.order);
                     },
                     failure: function(error){
                         console.log(i + " " + error)
@@ -28,11 +32,13 @@ var app = new Vue({
             }   
         
        },
-       deconstruct: function(result){
-            if(!result.svg){
-                result.svg = '<svg width="460" height="400"><g transform="translate(40,10)"><text fill="#000" x="-9" dy="0.32em">3,000</text><text fill="#000" y="-9" dy="0.32em">3,000</text><rect x="1" transform="translate(312, 356.533203125)" width="18.5" height="3.466801824632512" style="fill: rgb(105, 179, 162);"></rect></svg>'
-            }
-            data = decon(result.svg)
+       deconstruct: function(result, order){
+            // if(!result.svg){
+            //     result.svg = '<svg width="460" height="400"><g transform="translate(40,10)"><text fill="#000" x="-9" dy="0.32em">3,000</text><text fill="#000" y="-9" dy="0.32em">3,000</text><rect x="1" transform="translate(312, 356.533203125)" width="18.5" height="3.466801824632512" style="fill: rgb(105, 179, 162);"></rect></svg>'
+            // }
+            //var doc = new DOMParser().parseFromString(result.svg, "text/xml");
+            //doc.firstChild.innerHTML
+            data = decon(result)
             console.log(data);
 
             let marks = [];
@@ -68,12 +74,17 @@ var app = new Vue({
             })
 
             let reqObj = {}
-            reqObj.order = result.order
+            reqObj.order = order
             reqObj.marks = marks
             reqObj.xAxisType = xAxisType
             reqObj.yAxisType = yAxisType
-
-            this.sendDataToServer(reqObj)
+            if(marks.length > 0){
+                this.sendDataToServer(reqObj)
+            }else{
+                this.svgToDelete += 1
+                this.deletesvg(reqObj)
+            }
+            
        },
        sendDataToServer : function(data){
         console.log(data)
@@ -88,7 +99,24 @@ var app = new Vue({
                 console.log("done")
             },
             failure: function(error){
-                console.log(self.order + " " + error)
+                console.log(error)
+            }
+        })
+       },
+       deletesvg : function(data){
+        console.log(data)
+        this.svgProcessed += 1;
+        $.ajax({
+            type: "POST",
+            url: this.url + "collection",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function(result){
+                console.log("done")
+            },
+            failure: function(error){
+                console.log(error)
             }
         })
        }
@@ -97,12 +125,13 @@ var app = new Vue({
     data: {
         currentId: 0,
         errors: [],
-        url:"http://127.0.0.1:3000/",
+        url:"https://cse578-final-project.herokuapp.com/",
         order:0,
         start: 1,
         end: 1,
         svgReceived:0,
         svgProcessed:0,
-        noResponseSvg:0
+        noResponseSvg:0,
+        svgToDelete:0
     }
   })

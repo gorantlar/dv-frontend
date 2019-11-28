@@ -33,8 +33,94 @@ var app = new Vue({
             
         },
         query(){
-            this.graphs = graphs;
+            //this.graphs = graphs;
+            if(this.inputType == "url"){
+                this.getSvg()
+            }else if(this.inputType == "query"){
+                this.search(this.inputType)
+            }
         },
+        getSvg(){
+            let data = {}
+            data['url'] = this.userInput
+            $.ajax({
+                type: "POST",
+                url: this.crawlerUrl + "svg",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result){
+                    console.log("called crawler for getting the svg")
+                    let op = "";
+                    for(i=0;i<result.length;i++){
+                        let e = result[i].element
+                        if(op.length < e.length){
+                            op = e
+                        }
+
+                    }
+                    let deconJson = this.deconstruct(op)
+                    this.search(deconJson)
+
+                },
+                failure: function(error){
+                    console.log(self.order + " " + error)
+                }
+            })
+        },
+        search: function(input){
+
+        },
+        deconstruct: function(result){
+            // if(!result.svg){
+            //     result.svg = '<svg width="460" height="400"><g transform="translate(40,10)"><text fill="#000" x="-9" dy="0.32em">3,000</text><text fill="#000" y="-9" dy="0.32em">3,000</text><rect x="1" transform="translate(312, 356.533203125)" width="18.5" height="3.466801824632512" style="fill: rgb(105, 179, 162);"></rect></svg>'
+            // }
+            //var doc = new DOMParser().parseFromString(result.svg, "text/xml");
+            //doc.firstChild.innerHTML
+            data = decon(result)
+            console.log(data);
+
+            let marks = [];
+            let xAxisType, yAxisType;
+            let nodeName, tempNum
+            data['unbound'].forEach(d => {
+                nodeName = d.node.nodeName
+                if(['rect', 'circle', 'path', 'polygon'].includes(nodeName) && !marks.includes(nodeName)){
+                marks.push(nodeName)
+                }
+                if(nodeName == "text"){
+                if((d.nodeAttrs.x == "0" || !d.nodeAttrs.x) && !xAxisType){
+                    //parseFloat(yournumber.replace(/,/g, ''))
+                    tempNum = d.node.textContent
+                    tempNum = parseFloat(tempNum.replace(/,/g, ''))
+                    if(Number.isNaN(tempNum)){
+                    xAxisType = "nominal"
+                    }else{
+                    xAxisType = "quantitative"
+                    }
+                }
+
+                if((d.nodeAttrs.y == "0"|| !d.nodeAttrs.y) && !yAxisType){
+                    tempNum = d.node.textContent
+                    tempNum = parseFloat(tempNum.replace(/,/g, ''))
+                    if(Number.isNaN(tempNum)){
+                    yAxisType = "nominal"
+                    }else{
+                    yAxisType = "quantitative"
+                    }
+                }
+                }
+            })
+
+            let reqObj = {}
+            reqObj.order = result.order
+            reqObj.marks = marks
+            reqObj.xAxisType = xAxisType
+            reqObj.yAxisType = yAxisType
+            
+            return reqObj
+            
+       },
         validateUrl(url){
             try {
                 new URL(url);
@@ -54,8 +140,10 @@ var app = new Vue({
         userInput:"",
         inputType:"",
         graphs: [],
-        errors: []
+        errors: [],
+        crawlerUrl: ""
     }
+
   })
 
   var graphs = [

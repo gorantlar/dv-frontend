@@ -18,8 +18,11 @@
         <button @click="init">Start</button>
         <br/>
         <p>SVG's received (SVG elements received from DB): {{svgReceived}}</p>
-        <p>SVG's processed (JSON sent to DB for storing): {{svgProcessed}}</p>
         <p>SVG's no response (GET returned empty response):{{noResponseSvg}}</p>
+
+        <p>SVG's processed (JSON sent to DB for storing): {{svgProcessed}}</p>
+       
+        <p>SVG's to delete (marks for the SVG is empty): {{svgToDelete}}</p>
     </div>
         
 </div>
