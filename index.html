@@ -42,8 +42,14 @@
                     Sample Visualizations
                 </h3>
                 <div id="charts-holder">
-                    <graphs-holder v-for="graph in graphs" v-bind:code='graph.code' v-bind:id='graph.key'></graph-holder>
+                    <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder>
                 </div>
+                <!-- <div>
+                    <p>
+                        <a href="#"" @click=prev()>Prev</a>
+                        <a href="#"" @click=next()>Next</a>
+                    </p>
+                </div> -->
             </div> 
         </div>
         

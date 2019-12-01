@@ -35,12 +35,15 @@ var app = new Vue({
         query(){
             //this.graphs = graphs;
             if(this.inputType == "url"){
-                this.getSvg()
+                this.getSvg(this.userInput)
             }else if(this.inputType == "query"){
                 this.search(this.userInput)
+            }else if(this.inputType == "svg"){
+                this.processSvg(this.userInput)
             }
         },
         getSvg(){
+            let self = this
             let data = {}
             data['url'] = this.userInput
             $.ajax({
@@ -59,8 +62,8 @@ var app = new Vue({
                         }
 
                     }
-                    let deconJson = this.deconstruct(op)
-                    this.search(deconJson)
+                    let deconJson = self.deconstruct(op)
+                    self.search(JSON.stringify(deconJson))
 
                 },
                 failure: function(error){
@@ -68,21 +71,26 @@ var app = new Vue({
                 }
             })
         },
+        processSvg: function(svg){
+            let deconJson = this.deconstruct(svg)
+            this.search(JSON.stringify(deconJson))
+        },
         search: function(input){
             let json = JSON.parse(input)
-            json["from"] = 0
-            json["to"] = 9
-
+            let self = this
+            // json["from"] = 0
+            // json["to"] = 300
+            this.lastQuery = input
             const params = (new URLSearchParams(json)).toString()
 
             console.log(params.toString())
 
             $.ajax({
-                url: this.url + "collection/?" + params,
+                url: this.url + "collection/limit/"+self.limit+"?" + params,
                 contentType: "application/json",
                 dataType: 'json',
                 success: function(result){
-                    
+                    self.graphs = result;
                     console.log(result);
                 },
                 failure: function(error){
@@ -162,8 +170,10 @@ var app = new Vue({
         inputType:"",
         graphs: [],
         errors: [],
-        crawlerUrl: "",
-        url:"https://cse578-final-project.herokuapp.com/"
+        crawlerUrl: "http://506de52f.ngrok.io/",
+        url:"https://cse578-final-project.herokuapp.com/",
+        lastQuery: {},
+        limit: 10
     }
 
   })
