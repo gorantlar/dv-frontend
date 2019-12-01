@@ -1,6 +1,6 @@
 Vue.component('graphs-holder',{
     props:['code','id'],
-    template: "<div class='sample-chart-holder' v-html='code' v-bind:id='id'></div>"
+    template: "<div class='sample-chart-holder' v-bind:id='id'><span>Order: {{id}}</span><button @click='deletesvg()'>Delete</button><div v-html='code'></div></div>"
 })
 var app = new Vue({
     el: '#app',
@@ -102,6 +102,20 @@ var app = new Vue({
             })
 
 
+        },
+        deletesvg : function(order){
+            $.ajax({
+                type: "GET",
+                url: this.url + "collection/delete/order/"+order,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result){
+                    console.log("done")
+                },
+                failure: function(error){
+                    console.log(error)
+                }
+            })
         },
         deconstruct: function(result){
             // if(!result.svg){
