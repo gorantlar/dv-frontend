@@ -40,7 +40,9 @@
             </div>
             <div class="col-8 right-side">
                 <h3>
-                    Sample Visualizations  <h4 v-if="showProgress" style="color:orange">Processing, please wait!!!</h4>
+                    Sample Visualizations  
+                    <h4 v-if="showProgress" style="color:orange">Processing, please wait!!!</h4>
+                    <h4 v-if="!showProgress && graphs.length == 0" style="color:orange">No graphs to display</h4>
                 </h3>
                 <div id="charts-holder">
                     <!-- <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder> -->
