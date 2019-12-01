@@ -50,10 +50,10 @@
                     <!-- <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder> -->
                         <div class='sample-chart-holder' v-for="graph in graphs" v-bind:id='graph.order'>
                             
-                            <span>Order: {{graph.order}}</span>
-                            <button @click='deletesvg(graph.order)'>Delete</button>
+                            <!-- <span>Order: {{graph.order}}</span>
+                            <button @click='deletesvg(graph.order)'>Delete</button> -->
                             <div v-html='graph.svg' style="margin:10px"></div>
-                            <a :href="graph.url" target="_blank">Source</a>
+                            <a :href="graph.url" target="_blank" style="margin-left:10px">Source</a>
                         </div>
                 </div>
                 <!-- <div>
