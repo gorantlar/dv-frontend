@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="app">
+        <div id="nav">D3 Search Engine</div>
         <div class="row app-holder">
             <div class="col-4 left-side">
                 <div class="row" id="inputTypeMenu">
@@ -33,6 +34,7 @@
                 <!-- v-if="inputType!=''" -->
                 <div class="row" id="inputTypeHolder" > 
                     <textarea id="inputField" v-model="userInput"></textarea>
+                    
                     <p>Number of results to show: <input type="text" v-model="limit"></p>
                    
                     <button type="button" v-on:click="submit()" class="btn-sm btn btn-info submit-tbn">Submit</button>

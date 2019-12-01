@@ -35,8 +35,9 @@ body{
     width:100%;
 }
 #inputField{
-    height: 500px;
+    height: 400px;
     width: 100%;
+    margin-bottom:10px
 }
 .submit-tbn{
     margin-top: 10px;
@@ -44,4 +45,12 @@ body{
 }
 #error-holder > p{
     color:red
+}
+#nav{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    background: gray;
+    color: white;
+    padding: 10px;
 }
