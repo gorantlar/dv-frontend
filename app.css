@@ -18,6 +18,7 @@ body{
 #charts-holder{
     height:auto;
     overflow-y: auto;
+    margin-bottom: 200px;
 }
 .sample-chart-holder{
     width: 450px;
@@ -26,7 +27,7 @@ body{
     margin-left: 30px;
     margin-bottom: 25px;
     box-shadow: 1px 1px 4px grey;
-    background: #fff
+    background: #fff;
 }
 #inputTypeMenu{
     margin-left: 20px;
