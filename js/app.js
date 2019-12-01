@@ -43,6 +43,7 @@ var app = new Vue({
             }
         },
         getSvg(){
+            this.showProgress = true
             let self = this
             let data = {}
             data['url'] = this.userInput
