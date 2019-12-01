@@ -27,7 +27,9 @@ var app = new Vue({
                             self.noResponseSvgList.push(currentId)
                             return
                         }
-                        
+                        if(result.marks){
+                            return
+                        }
                         result = result[0]
                         //self.order = result.order
                         //console.log(result);
