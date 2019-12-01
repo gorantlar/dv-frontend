@@ -51,7 +51,7 @@
                         <div class='sample-chart-holder' v-for="graph in graphs" v-bind:id='graph.order'>
                             <span>Order: {{graph.order}}</span>
                             <button @click='deletesvg(graph.order)'>Delete</button>
-                            <div v-html='graph.svg'></div>
+                            <div v-html='graph.svg' style="margin:10px"></div>
                         </div>
                 </div>
                 <!-- <div>
