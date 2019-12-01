@@ -94,7 +94,7 @@ var app = new Vue({
                 success: function(result){
                     result.forEach(e =>{
                         let t = e.svg.substring(0, 4)
-                        e.svg = "<svg height='200px' weight='400px' viewBox='0 0 200 400' preserveAspectRatio='xMinYMin meet'" + e.svg.substring(4)
+                        e.svg = "<svg height='200px' width='400px' viewBox='0 0 200 400' preserveAspectRatio='xMinYMin meet'" + e.svg.substring(4)
                     })
                     self.graphs = result;
                     self.showProgress = false
