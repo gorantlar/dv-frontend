@@ -173,7 +173,7 @@ var app = new Vue({
         inputType:"",
         graphs: [],
         errors: [],
-        crawlerUrl: "http://506de52f.ngrok.io/",
+        crawlerUrl: "https://506de52f.ngrok.io/",
         url:"https://cse578-final-project.herokuapp.com/",
         lastQuery: {},
         limit: 10,
