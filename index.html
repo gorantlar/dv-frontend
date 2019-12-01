@@ -13,7 +13,7 @@
     <div id="app">
         <div id="nav">D3 Search Engine</div>
         <div class="row app-holder">
-            <div class="col-4 left-side">
+            <div class="col-3 left-side">
                 <div class="row" id="inputTypeMenu">
                     <div class="col">
                         <input type="radio" v-model="inputType" name="inputType" id="inputTypeQuery" value="query">
@@ -40,12 +40,12 @@
                     <button type="button" v-on:click="submit()" class="btn-sm btn btn-info submit-tbn">Submit</button>
                 </div>
             </div>
-            <div class="col-8 right-side">
-                <h3>
-                    Sample Visualizations  
-                    <h4 v-if="showProgress" style="color:orange">Processing, please wait!!!</h4>
-                    <h4 v-if="!showProgress && graphs.length == 0" style="color:orange">No graphs to display</h4>
-                </h3>
+            <div class="col-9 right-side">
+                <h4>
+                    Sample Visualizations  </h4>
+                    <h5 v-if="showProgress" style="color:orange">Processing, please wait!!!</h5>
+                    <h5 v-if="!showProgress && graphs.length == 0" style="color:orange">No graphs to display</h5>
+                
                 <div id="charts-holder">
                     <!-- <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder> -->
                         <div class='sample-chart-holder' v-for="graph in graphs" v-bind:id='graph.order'>
