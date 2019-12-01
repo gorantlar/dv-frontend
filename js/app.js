@@ -76,6 +76,8 @@ var app = new Vue({
             this.search(JSON.stringify(deconJson))
         },
         search: function(input){
+            this.showProgress = true
+            input = input.replace(/'/g, '"');
             let json = JSON.parse(input)
             let self = this
             // json["from"] = 0
@@ -91,6 +93,7 @@ var app = new Vue({
                 dataType: 'json',
                 success: function(result){
                     self.graphs = result;
+                    self.showProgress = false
                     console.log(result);
                 },
                 failure: function(error){
@@ -173,7 +176,8 @@ var app = new Vue({
         crawlerUrl: "http://506de52f.ngrok.io/",
         url:"https://cse578-final-project.herokuapp.com/",
         lastQuery: {},
-        limit: 10
+        limit: 10,
+        showProgress: false
     }
 
   })

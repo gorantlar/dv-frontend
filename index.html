@@ -33,13 +33,14 @@
                 <!-- v-if="inputType!=''" -->
                 <div class="row" id="inputTypeHolder" > 
                     <textarea id="inputField" v-model="userInput"></textarea>
-                    
+                    <p>Number of results to show: <input type="text" v-model="limit"></p>
+                   
                     <button type="button" v-on:click="submit()" class="btn-sm btn btn-info submit-tbn">Submit</button>
                 </div>
             </div>
             <div class="col-8 right-side">
                 <h3>
-                    Sample Visualizations
+                    Sample Visualizations  <h4 v-if="showProgress" style="color:orange">Processing, please wait!!!</h4>
                 </h3>
                 <div id="charts-holder">
                     <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder>
