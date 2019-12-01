@@ -32,7 +32,7 @@
                     <p v-for="e in errors">{{e}}</p>
                 </div>
                 <!-- v-if="inputType!=''" -->
-                <div class="row" id="inputTypeHolder" > 
+                <div class="row" id="inputTypeHolder" style="margin:0 auto"> 
                     <textarea id="inputField" v-model="userInput"></textarea>
                     
                     <p>Number of results to show: <input type="text" v-model="limit"></p>
@@ -49,9 +49,11 @@
                 <div id="charts-holder">
                     <!-- <graphs-holder v-for="graph in graphs" v-bind:code='graph.svg' v-bind:id='graph.order'></graph-holder> -->
                         <div class='sample-chart-holder' v-for="graph in graphs" v-bind:id='graph.order'>
+                            
                             <span>Order: {{graph.order}}</span>
                             <button @click='deletesvg(graph.order)'>Delete</button>
                             <div v-html='graph.svg' style="margin:10px"></div>
+                            <a :href="graph.url" target="_blank">Source</a>
                         </div>
                 </div>
                 <!-- <div>

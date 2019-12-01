@@ -2,13 +2,13 @@ body{
     overflow: hidden;
 }
 .right-side{
-    background: #DFDFDF;
+    background: #cce1f3bf;
     height: 100%;
     padding-top: 20px;
     overflow-y: auto;
 }
 .left-side{
-    background: rgb(244, 243, 243);
+    background: rgba(178, 209, 224, 0.74);
     padding-top: 20px;
     padding:30px;
 }
@@ -26,6 +26,7 @@ body{
     margin-left: 30px;
     margin-bottom: 25px;
     box-shadow: 1px 1px 4px grey;
+    background: #fff
 }
 #inputTypeMenu{
     margin-left: 20px;
@@ -50,7 +51,7 @@ body{
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    background: gray;
+    background: #357296f0;
     color: white;
     padding: 10px;
 }
