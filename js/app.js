@@ -64,6 +64,10 @@ var app = new Vue({
 
                     }
                     let deconJson = self.deconstruct(op)
+                    if(deconJson.marks.length == 0){
+                        self.showProgress = false;
+                        return;
+                    }
                     self.search(JSON.stringify(deconJson))
 
                 },
