@@ -198,7 +198,7 @@ var app = new Vue({
         inputType:"",
         graphs: [],
         errors: [],
-        crawlerUrl: "https://f9b3823c.ngrok.io/",
+        crawlerUrl: "https://3ea3c9b0.ngrok.io/",
         url:"https://cse578-final-project.herokuapp.com/",
         lastQuery: {},
         limit: 10,
